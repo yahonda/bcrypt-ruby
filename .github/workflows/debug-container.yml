@@ -1,0 +1,14 @@
+name: Debug Ruby container
+
+on: [ push ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: rubylang/ruby:master-debug
+    steps:
+      - run: apt-get update && apt-get install -y --no-install-recommends build-essential git libyaml-dev
+      - uses: actions/checkout@v6
+      - run: ruby -v
+      - run: bundle install --jobs 1
+      - run: bundle exec rake
